@@ -1,7 +1,14 @@
+import { CardWrapper } from "./card-wrapper";
+
 export const LoginForm = (): React.ReactElement => {
   return (
-    <div>
-      <p>Login form</p>
-    </div>
-  )
-}
+    <CardWrapper
+      headerLabel="Welcome back!"
+      backButtonLabel="Dont have an account?"
+      backButtonHref="/auth/register"
+      showSocial
+    >
+      Login form
+    </CardWrapper>
+  );
+};
