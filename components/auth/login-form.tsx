@@ -15,6 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { FormError } from "../form-error";
 
 export const LoginForm = (): React.ReactElement => {
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -68,6 +69,7 @@ export const LoginForm = (): React.ReactElement => {
               )}
             />
           </div>
+          <FormError message="Something went wrong, try again." />
           <Button className="w-full" type="submit" variant="secondary">
             Login
           </Button>
