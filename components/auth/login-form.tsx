@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "@/schemas";
 import { CardWrapper } from "@/components/auth/card-wrapper";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -13,7 +15,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 
 export const LoginForm = (): React.ReactElement => {
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -23,6 +24,9 @@ export const LoginForm = (): React.ReactElement => {
       password: "",
     },
   });
+  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+    console.log(values);
+  };
   return (
     <CardWrapper
       headerLabel="Welcome back!"
@@ -50,7 +54,23 @@ export const LoginForm = (): React.ReactElement => {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="*********" type="password" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
+          <Button className="w-full" type="submit" variant="secondary">
+            Login
+          </Button>
         </form>
       </Form>
     </CardWrapper>
