@@ -1,6 +1,7 @@
 "use client";
 
 import * as z from "zod";
+import { login } from "@/actions/login";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "@/schemas";
@@ -16,6 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { FormError } from "../form-error";
+import { FormSuccess } from "../form-success";
 
 export const LoginForm = (): React.ReactElement => {
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -26,7 +28,7 @@ export const LoginForm = (): React.ReactElement => {
     },
   });
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    console.log(values);
+    login(values);
   };
   return (
     <CardWrapper
@@ -36,7 +38,7 @@ export const LoginForm = (): React.ReactElement => {
       showSocial
     >
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(() => {})} className="space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
             <FormField
               control={form.control}
@@ -69,7 +71,8 @@ export const LoginForm = (): React.ReactElement => {
               )}
             />
           </div>
-          <FormError message="Something went wrong, try again." />
+          <FormSuccess message="" />
+          <FormError message="" />
           <Button className="w-full" type="submit" variant="secondary">
             Login
           </Button>
