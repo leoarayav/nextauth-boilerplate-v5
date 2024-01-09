@@ -8,6 +8,7 @@ import { LoginSchema } from "@/schemas";
 import { CardWrapper } from "@/components/auth/card-wrapper";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useTransition } from "react";
 import {
   Form,
   FormControl,
@@ -20,6 +21,7 @@ import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 
 export const LoginForm = (): React.ReactElement => {
+  const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -28,7 +30,9 @@ export const LoginForm = (): React.ReactElement => {
     },
   });
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    login(values);
+    startTransition(() => {
+      login(values);
+    });
   };
   return (
     <CardWrapper
