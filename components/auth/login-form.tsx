@@ -53,6 +53,7 @@ export const LoginForm = (): React.ReactElement => {
                   <FormControl>
                     <Input
                       {...field}
+                      disabled={isPending}
                       placeholder="xyz@gmail.com"
                       type="email"
                     />
@@ -68,7 +69,12 @@ export const LoginForm = (): React.ReactElement => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="*********" type="password" />
+                    <Input
+                      {...field}
+                      placeholder="*********"
+                      type="password"
+                      disabled={isPending}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -77,7 +83,12 @@ export const LoginForm = (): React.ReactElement => {
           </div>
           <FormSuccess message="" />
           <FormError message="" />
-          <Button className="w-full" type="submit" variant="secondary">
+          <Button
+            className="w-full"
+            type="submit"
+            variant="secondary"
+            disabled={isPending}
+          >
             Login
           </Button>
         </form>
