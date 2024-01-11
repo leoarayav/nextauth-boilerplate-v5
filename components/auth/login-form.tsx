@@ -8,7 +8,7 @@ import { LoginSchema } from "@/schemas";
 import { CardWrapper } from "@/components/auth/card-wrapper";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import {
   Form,
   FormControl,
@@ -21,6 +21,8 @@ import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 
 export const LoginForm = (): React.ReactElement => {
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -30,8 +32,13 @@ export const LoginForm = (): React.ReactElement => {
     },
   });
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+    setError("");
+    setSuccess("");
     startTransition(() => {
-      login(values);
+      login(values).then((data) => {
+        setError(data.error);
+        setSuccess(data.success);
+      });
     });
   };
   return (
@@ -81,8 +88,8 @@ export const LoginForm = (): React.ReactElement => {
               )}
             />
           </div>
-          <FormSuccess message="" />
-          <FormError message="" />
+          <FormSuccess message={error} />
+          <FormError message={success} />
           <Button
             className="w-full"
             type="submit"
