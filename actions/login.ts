@@ -8,7 +8,7 @@ import { LoginSchema } from "@/schemas";
  * @param {object} values - The values to login with
  * @returns {void}
  */
-export const login = (values: z.infer<typeof LoginSchema>) => {
+export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validateFields = LoginSchema.safeParse(values);
   if (!validateFields.success)
     return {
