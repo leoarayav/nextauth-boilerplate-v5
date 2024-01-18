@@ -1,7 +1,7 @@
 "use client";
 
 import * as z from "zod";
-import { login } from "@/actions/login";
+import { register } from "@/actions/register";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterSchema } from "@/schemas";
@@ -36,7 +36,7 @@ export const RegisterForm = (): React.ReactElement => {
     setError("");
     setSuccess("");
     startTransition(() => {
-      login(values).then((data) => {
+      register(values).then((data) => {
         setError(data.error);
         setSuccess(data.success);
       });
